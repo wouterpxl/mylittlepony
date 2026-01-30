@@ -1,0 +1,30 @@
+name: "Code Quality Analysis"
+
+on: [push, pull_request]
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run PMD (Java)
+        uses: pmd/pmd-github-action@v2
+        with:
+          rulesets: 'rulesets/java/quickstart.xml'
+          source: 'src/main/java'
+          format: 'sarif'
+          outputpath: 'pmd-results.sarif'
+
+      - name: Upload PMD results
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: pmd-results.sarif
+          category: pmd-java
