@@ -24,7 +24,6 @@ jobs:
           uploadSarifReport: true
 
       - name: Upload PMD results
-        if: hasFiles('pmd-report.sarif')
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: pmd-report.sarif
