@@ -19,9 +19,8 @@ jobs:
         uses: pmd/pmd-github-action@v2
         with:
           rulesets: 'rulesets/java/quickstart.xml'
-          source: 'src/main/java'
-          format: 'sarif'
-          outputpath: 'pmd-results.sarif'
+          sourcePath: 'src/main/java'
+          uploadSarifReport: true
 
       - name: Upload PMD results
         uses: github/codeql-action/upload-sarif@v3
