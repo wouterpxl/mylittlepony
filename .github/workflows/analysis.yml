@@ -15,18 +15,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Fetch Master Ruleset
-        run: curl -sSL https://raw.githubusercontent.com/wouterpxl/pxl-code-quality-analysis/refs/heads/main/pmd-rules.xml -o pmd-rules.xml
-        
       - name: Run Tests
         run: ./gradlew test
 
-      - name: Check Test Coverage
-        uses: madrapps/jacoco-report@v1.7.2
+      - name: Upload JaCoCo HTML Report
+        uses: actions/upload-artifact@v4
         with:
-          paths: ${{ github.workspace }}/build/reports/jacoco/test/jacocoTestReport.xml
-          token: ${{ secrets.GITHUB_TOKEN }}
-          min-coverage-overall: 80
+          name: jacoco-report
+          path: build/reports/jacoco/test/html/
+
+      - name: Generate JaCoCo Badge
+        uses: cicirello/jacoco-badge-generator@v2
+        with:
+          jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.csv
+
+      - name: Fetch PMD Master Ruleset
+        run: curl -sSL https://raw.githubusercontent.com/wouterpxl/pxl-code-quality-analysis/refs/heads/main/pmd-rules.xml -o pmd-rules.xml
         
       - name: Run PMD (Java)
         uses: pmd/pmd-github-action@v2

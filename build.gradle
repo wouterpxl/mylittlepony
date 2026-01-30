@@ -23,7 +23,10 @@ tasks.named('test') {
 tasks.named('jacocoTestReport') {
     dependsOn tasks.named('test')
     reports {
-        xml.required = true
+        xml.required = false
+        // for the GitHub badge, please leave as is
+        csv.required = true
+        // for the GitHub Artifacts & your local dev
         html.required = true
     }
 }
