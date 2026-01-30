@@ -15,10 +15,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Fetch Master Ruleset
+        run: curl -sSL https://raw.githubusercontent.com/wouterpxl/pxl-code-quality-analysis/refs/heads/main/pmd-rules.xml -o pmd-rules.xml
+        
       - name: Run PMD (Java)
         uses: pmd/pmd-github-action@v2
         with:
-          rulesets: 'rulesets/java/quickstart.xml'
+          rulesets: 'pmd-rules.xml'
           sourcePath: 'src/main/java'
           analyzeModifiedFilesOnly: false
           uploadSarifReport: true
