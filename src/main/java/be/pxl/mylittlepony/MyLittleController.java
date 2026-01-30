@@ -20,6 +20,7 @@ public class MyLittleController {
                     if (true) {
                         if (n > 10) {
                             System.out.println("hallokes");
+                            System.out.println("nog iets");
                         }
                     }
                 }
