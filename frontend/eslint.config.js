@@ -24,8 +24,7 @@ export default defineConfig([
       "max-lines-per-function": ["warn", 50],
       "max-params": ["warn", 4],
 
-      "unused-imports": "error",
-      "camelCase": "error",
+      "camelcase": "error",
       "no-unused-vars": "error",
       "no-console": "warn",
       "eqeqeq": "error",
