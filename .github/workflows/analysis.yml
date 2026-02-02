@@ -67,7 +67,12 @@ jobs:
         working-directory: ./frontend
 
       - name: Run ESLint
-        run: npm run lint
+        run: npx eslint . --cache
+        working-directory: ./frontend
+
+      - name: Generate ESLint HTML Report
+        if: always()
+        run: npx eslint . --cache --format html --output-file build/eslint-report.html
         working-directory: ./frontend
 
       - name: Upload ESLint Report
