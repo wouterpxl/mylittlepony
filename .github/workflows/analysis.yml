@@ -29,8 +29,8 @@ jobs:
           cache: 'npm'
           cache-dependency-path: './frontend/package-lock.json'
 
-      - name: Run Tests
-        run: ./gradlew test --no-daemon
+      - name: Run Gradle
+        run: ./gradlew check --no-daemon
 
       - name: Upload JaCoCo HTML Report
         uses: actions/upload-artifact@v4
@@ -44,18 +44,16 @@ jobs:
         with:
           jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.csv
 
-      - name: Fetch PMD Master Ruleset
-        run: curl -sSL https://raw.githubusercontent.com/wouterpxl/pxl-code-quality-analysis/refs/heads/main/pmd-rules.xml -o pmd-rules.xml
-        
-      - name: Run PMD (Java)
+      - name: Generate PMD Sarif
         uses: pmd/pmd-github-action@v2
         with:
+          version: '7.21.0'
           rulesets: 'pmd-rules.xml'
-          sourcePath: 'src/main/java'
+          sourcePath: 'src'
           analyzeModifiedFilesOnly: false
           uploadSarifReport: true
 
-      - name: Upload PMD results
+      - name: Upload PMD Sarif results
         uses: github/codeql-action/upload-sarif@v3
         if: always()
         with:

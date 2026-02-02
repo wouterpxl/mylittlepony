@@ -20,10 +20,12 @@ export default defineConfig([
 
     rules: {
       "complexity": ["error", 10],
-      "max-depth": ["warn", 5],
+      "max-depth": ["warn", 4],
       "max-lines-per-function": ["warn", 50],
       "max-params": ["warn", 4],
 
+      "unused-imports": "error",
+      "camelCase": "error",
       "no-unused-vars": "error",
       "no-console": "warn",
       "eqeqeq": "error",

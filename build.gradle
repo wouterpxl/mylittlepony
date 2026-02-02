@@ -1,5 +1,6 @@
 plugins {
 	id 'java'
+    id 'pmd'
     id 'jacoco'
 	id 'org.springframework.boot' version '4.0.2'
 	id 'io.spring.dependency-management' version '1.1.7'
@@ -29,6 +30,21 @@ tasks.named('jacocoTestReport') {
         // for the GitHub Artifacts & your local dev
         html.required = true
     }
+}
+
+tasks.register('pmd') {
+    group = 'verification'
+    description = 'Run PMD analysis on all source sets'
+    dependsOn tasks.withType(Pmd) 
+}
+
+pmd {
+    ruleSetFiles = files("pmd-rules.xml")
+    ruleSets = []
+}
+
+tasks.named('check') {
+    dependsOn 'pmd'
 }
 
 repositories {
