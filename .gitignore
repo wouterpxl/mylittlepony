@@ -40,13 +40,8 @@ out/
 
 ### Vuejs ###
 node_modules/
-dist/
-logs/
-coverage/
-npm-debug.log
-yarn-error.log
-
-.eslintcache
+error.log
+frontend/.eslintcache
 
 # Cypress
 /cypress/videos/

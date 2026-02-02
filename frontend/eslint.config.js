@@ -2,7 +2,6 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 import globals from 'globals'
 import js from '@eslint/js'
 import pluginVue from 'eslint-plugin-vue'
-import pluginOxlint from 'eslint-plugin-oxlint'
 
 export default defineConfig([
   {
@@ -18,10 +17,23 @@ export default defineConfig([
         ...globals.browser,
       },
     },
+
+    rules: {
+      "complexity": ["error", 10],
+      "max-depth": ["warn", 5],
+      "max-lines-per-function": ["warn", 50],
+      "max-params": ["warn", 4],
+
+      "no-unused-vars": "error",
+      "no-console": "warn",
+      "eqeqeq": "error",
+      "no-return-assign": "error",
+      "no-else-return": "warn",
+      "consistent-return": "error"
+    }
   },
 
   js.configs.recommended,
   ...pluginVue.configs['flat/essential'],
-
-  ...pluginOxlint.buildFromOxlintConfigFile('.oxlintrc.json'),
+  
 ])
