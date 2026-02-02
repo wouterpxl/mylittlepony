@@ -41,11 +41,13 @@ jobs:
 
       - name: Generate JaCoCo Badge
         uses: cicirello/jacoco-badge-generator@v2
+        if: always()
         with:
           jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.csv
 
       - name: Generate PMD Sarif
         uses: pmd/pmd-github-action@v2
+        if: always()
         with:
           version: '7.21.0'
           rulesets: 'pmd-rules.xml'
@@ -61,10 +63,12 @@ jobs:
           category: pmd-java
 
       - name: Install Frontend modules
+        if: always()
         run: npm ci
         working-directory: ./frontend
 
       - name: Run ESLint
+        if: always()
         run: npx eslint . --cache
         working-directory: ./frontend
 
